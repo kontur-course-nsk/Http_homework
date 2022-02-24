@@ -18,8 +18,7 @@ namespace PokeApi.Tests
         {
             this.pokeClient = new PokeClient();
         }
-
-        [Test]
+        
         [TestCaseSource(typeof(TestData), nameof(TestData.NameDictionary))]
         public async Task GetPokemonByNameTest(KeyValuePair<string, Pokemon> expectedPokemon)
         {
@@ -27,8 +26,7 @@ namespace PokeApi.Tests
 
             AssertPokemon(actualPokemon, expectedPokemon.Value);
         }
-
-        [Test]
+        
         [TestCaseSource(typeof(TestData), nameof(TestData.IdDictionary))]
         public async Task GetPokemonByIdTest(KeyValuePair<int, Pokemon> expectedPokemon)
         {
@@ -36,8 +34,7 @@ namespace PokeApi.Tests
 
             AssertPokemon(actualPokemon, expectedPokemon.Value);
         }
-
-        [Test]
+        
         [TestCaseSource(typeof(TestData), nameof(TestData.OffsetsLimits))]
         public async Task GetPokemonsTest(PaginationParameters pagination)
         {
