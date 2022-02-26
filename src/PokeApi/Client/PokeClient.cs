@@ -21,20 +21,26 @@ namespace PokeApi.Client
 
         public async Task<Pokemon> GetPokemonAsync(string name)
         {
-            var response = await this.httpClient.GetAsync($"pokemon/{name}");
-
-            var content = await response.Content.ReadAsStringAsync();
+            var content = await GetContentAsync($"pokemon/{name}");
             return JsonSerializer.Deserialize<Pokemon>(content);
         }
 
         public async Task<Pokemon> GetPokemonAsync(int id)
         {
-            throw new NotImplementedException();
+            var content = await GetContentAsync($"pokemon/{id}");
+            return JsonSerializer.Deserialize<Pokemon>(content);
         }
 
         public async Task<PokemonList> GetPokemonsAsync(int? offset = null, int? limit = null)
         {
-            throw new NotImplementedException();
+            var content = await GetContentAsync($"pokemon?limit={limit}&offset={offset}");
+            return JsonSerializer.Deserialize<PokemonList>(content);
+        }
+
+        public async Task<string> GetContentAsync(string request)
+        {
+            var response = await this.httpClient.GetAsync(request);
+            return await response.Content.ReadAsStringAsync();
         }
     }
 }
