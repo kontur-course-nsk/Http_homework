@@ -10,6 +10,7 @@ namespace PokeApi.Models
         [JsonPropertyName("name")]
         public string Name { get; set; }
         
+        [JsonPropertyName("height")]
         public int Height { get; set; }
 
         [JsonPropertyName("types")]

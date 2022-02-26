@@ -5,7 +5,7 @@ namespace PokeApi.Models
 {
     public sealed class PokemonList
     {
-        [JsonPropertyName("amount")]
+        [JsonPropertyName("count")]
         public int TotalCount { get; set; }
 
         [JsonPropertyName("next")]
