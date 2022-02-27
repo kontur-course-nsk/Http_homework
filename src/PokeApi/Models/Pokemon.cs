@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
 namespace PokeApi.Models
 {
@@ -9,7 +9,8 @@ namespace PokeApi.Models
 
         [JsonPropertyName("name")]
         public string Name { get; set; }
-        
+
+        [JsonPropertyName("height")]
         public int Height { get; set; }
 
         [JsonPropertyName("types")]
