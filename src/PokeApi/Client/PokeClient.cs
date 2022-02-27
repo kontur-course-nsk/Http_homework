@@ -2,7 +2,6 @@
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
-using System.Web;
 using PokeApi.Models;
 
 namespace PokeApi.Client
@@ -21,26 +20,24 @@ namespace PokeApi.Client
 
         public async Task<Pokemon> GetPokemonAsync(string name)
         {
-            var response = await this.httpClient.GetAsync($"pokemon/{name}");
-
-            var content = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<Pokemon>(content);
+            return JsonSerializer.Deserialize<Pokemon>(await GetContentAsync($"pokemon/{name}"));
         }
 
         public async Task<Pokemon> GetPokemonAsync(int id)
         {
-            var response = await this.httpClient.GetAsync($"pokemon/{id}");
-
-            var content = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<Pokemon>(content);
+            return JsonSerializer.Deserialize<Pokemon>(await GetContentAsync($"pokemon/{id}"));
         }
 
         public async Task<PokemonList> GetPokemonsAsync(int? offset = null, int? limit = null)
         {
-            var response = await this.httpClient.GetAsync($"pokemon?offset={offset}&limit={limit}");
+            return JsonSerializer.Deserialize<PokemonList>(
+                await GetContentAsync($"pokemon?offset={offset}&limit={limit}"));
+        }
 
-            var content = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<PokemonList>(content);
+        private async Task<string> GetContentAsync(string requestUri)
+        {
+            var response = await this.httpClient.GetAsync(requestUri);
+            return await response.Content.ReadAsStringAsync();
         }
     }
 }
