@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -29,12 +30,18 @@ namespace PokeApi.Client
 
         public async Task<Pokemon> GetPokemonAsync(int id)
         {
-            throw new NotImplementedException();
+            var response = await this.httpClient.GetAsync($"pokemon/{id}");
+
+            var content = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<Pokemon>(content);
         }
 
         public async Task<PokemonList> GetPokemonsAsync(int? offset = null, int? limit = null)
         {
-            throw new NotImplementedException();
+            var response = await this.httpClient.GetAsync($"pokemon/?offset={offset}&limit={limit}");
+
+            var content = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<PokemonList>(content);
         }
     }
 }
